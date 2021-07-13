@@ -1,0 +1,2 @@
+kaitaistruct==0.9
+Pillow==8.3.1
