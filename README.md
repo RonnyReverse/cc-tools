@@ -1,6 +1,6 @@
 # CC Tools
 
-CC Tools is a collection of scripts to explore Unique Develpopment Studio's (UDS) CC, the 3D engine (Cc.dll, UdsPack.dll) files.
+CC Tools is a collection of scripts to explore Unique Development Studio's (UDS) CC, the 3D engine (Cc.dll, UdsPack.dll) files.
 
 ## Tools
 
@@ -13,11 +13,11 @@ The supported file formats are:
 
   - `UpPackage` *.up files
   - `GtImage` *.gti files
+  - `CcAnim` *.cca files (parser only)
 
 Unsupported file formats include:
 
   - `CcRoom` (aka scene) *.ccf and *.l3d files
-  - `CCAnim` *.cca files
   - various game-specific IFF-based file formats
 
 ### KSYs
@@ -26,6 +26,7 @@ Unsupported file formats include:
 
 - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
 - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
+- [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
 
 ## Games
 
