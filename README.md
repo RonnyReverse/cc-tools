@@ -1,6 +1,7 @@
 # CC Tools
 
-CC Tools is a collection of scripts to explore Unique Development Studio's (UDS) CC, the 3D engine (Cc.dll, UdsPack.dll) files.
+CC Tools is a collection of scripts to explore Unique Development Studio's (UDS)
+CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
 
 ## Tools
 
@@ -16,6 +17,7 @@ The fully supported file formats are:
 
 File formats with parsing support only:
   - `CcAnim` *.cca files
+  - `MmChunkContainer` Mulle Meck *.dat files (container only)
   - `AfChunkContainer` Airfix files (container only)
     - *.world files
     - *.level files
@@ -25,16 +27,20 @@ File formats with parsing support only:
 Unsupported file formats include:
 
   - `CcLoadedScene` *.ccf and *.l3d files
-  - various game-specific IFF-based file formats
+  - Chunks inside chunk container files
 
 ### KSYs
 
-[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative language for describing binary data, is used to parse files:
+[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative 
+language for describing binary data, is used to parse files:
 
 - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
 - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
 - [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
-- [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy) describes `AfChunkContainer`s (used as container for Airfix files)
+- [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
+  describes `MmChunkContainer`s (used as container for Mulle Meck files)
+- [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)
+  describes `AfChunkContainer`s (used as container for Airfix files)
 
 ## Games
 
