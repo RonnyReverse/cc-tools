@@ -9,28 +9,36 @@ CC Tools is a collection of scripts to explore Unique Development Studio's (UDS)
 
 ## File Formats
 
-The supported file formats are:
+The fully supported file formats are:
 
   - `UpPackage` *.up files
   - `GtImage` *.gti files
-  - `CcAnim` *.cca files (parser only)
+
+File formats with parsing support only:
+  - `CcAnim` *.cca files
+  - `AfChunkContainer` Airfix files (container only)
+    - *.world files
+    - *.level files
+    - *.object files
+    - *.dat files
 
 Unsupported file formats include:
 
-  - `CcRoom` (aka scene) *.ccf and *.l3d files
+  - `CcLoadedScene` *.ccf and *.l3d files
   - various game-specific IFF-based file formats
 
 ### KSYs
 
-[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative language used for describing binary data, is used to parse files:
+[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative language for describing binary data, is used to parse files:
 
 - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
 - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
 - [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
+- [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy) describes `AfChunkContainer`s (used as container for Airfix files)
 
 ## Games
 
-Only a few game are known to use the CC engine:
+Only a few games are known to use the CC engine:
 
   - Airfix Dogfighter
   - Mulle Meck 3: Planes
