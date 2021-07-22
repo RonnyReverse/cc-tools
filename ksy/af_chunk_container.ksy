@@ -1,6 +1,12 @@
 meta:
   id: af_chunk_container
-  file-extension: af_chunk_container
+  file-extension:
+    - brf
+    - dat
+    - level
+    - object
+    - roster
+    - world
   endian: le
   encoding: ascii
 

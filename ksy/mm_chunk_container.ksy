@@ -1,6 +1,8 @@
 meta:
   id: mm_chunk_container
-  file-extension: mm_chunk_container
+  file-extension:
+    - air
+    - dat
   endian: be
   encoding: ascii
 

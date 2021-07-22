@@ -1,6 +1,6 @@
 meta:
   id: cc_anim
-  file-extension: cc_anim
+  file-extension: cca
   endian: le
   encoding: ascii
 

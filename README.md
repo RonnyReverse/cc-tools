@@ -17,12 +17,16 @@ The fully supported file formats are:
 
 File formats with parsing support only:
   - `CcAnim` *.cca files
-  - `MmChunkContainer` Mulle Meck *.dat files (container only)
+  - `MmChunkContainer` Mulle Meck files (container only)
+    - *.air files
+    - *.dat files
   - `AfChunkContainer` Airfix files (container only)
-    - *.world files
+    - *.brf files
+    - *.dat files
     - *.level files
     - *.object files
-    - *.dat files
+    - *.roster files
+    - *.world files
 
 Unsupported file formats include:
 
