@@ -49,8 +49,9 @@ def decompress(file_):
 
 
 # found in UdsPack.dll UpHashTable::Add
+# also Cc.dll CcString::operator_int
 def up_hashtable_hash(string):
-    hash_constants = [0x03, 0x05, 0x07, 0x0B, 0x0D, 0x11, 0x13, 0x17, 0x1D, 0x1F, 0x25, 0x29, 0x2B, 0x2F, 0x35, 0x3B]
+    primes = [0x03, 0x05, 0x07, 0x0B, 0x0D, 0x11, 0x13, 0x17, 0x1D, 0x1F, 0x25, 0x29, 0x2B, 0x2F, 0x35, 0x3B]
 
     offset = len(string) - 15
     if offset < 0:
@@ -60,7 +61,7 @@ def up_hashtable_hash(string):
     index = len(string) - offset
 
     for char in string.lower()[offset:]:
-        hash_ += ord(char) * hash_constants[index]
+        hash_ += ord(char) * primes[index]
         index -= 1
 
     return hash_
