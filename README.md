@@ -7,6 +7,7 @@ CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
 
 - [extract.py](./extract.py) to extract `UpPackage`s
 - [convert.py](./convert.py) to convert `GtImage`s to PNG
+- [chunks.py](./chunks.py) to dump `MmChunkContainer`s to JSON
 
 ## File Formats
 
@@ -14,12 +15,12 @@ The fully supported file formats are:
 
   - `UpPackage` *.up files
   - `GtImage` *.gti files
-
-File formats with parsing support only:
-  - `CcAnim` *.cca files
   - `MmChunkContainer` Mulle Meck binary files
     - *.air files
     - *.dat files
+
+File formats with parsing support only:
+  - `CcAnim` *.cca files
   - `AfChunkContainer` Airfix binary files (container only)
     - *.brf files
     - *.dat files
