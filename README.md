@@ -17,10 +17,10 @@ The fully supported file formats are:
 
 File formats with parsing support only:
   - `CcAnim` *.cca files
-  - `MmChunkContainer` Mulle Meck files (container only)
+  - `MmChunkContainer` Mulle Meck binary files
     - *.air files
     - *.dat files
-  - `AfChunkContainer` Airfix files (container only)
+  - `AfChunkContainer` Airfix binary files (container only)
     - *.brf files
     - *.dat files
     - *.level files
@@ -31,7 +31,11 @@ File formats with parsing support only:
 Unsupported file formats include:
 
   - `CcLoadedScene` *.ccf and *.l3d files
-  - Chunks inside chunk container files
+  - All `AfChunkContainer` chunks
+  - Unused `MmChunkContainer` chunks
+    - `DTBS` (database) chunks
+    - `CMND` (command) chunks
+    - `DATA` chunks
 
 ### KSYs
 
@@ -42,9 +46,9 @@ language for describing binary data, is used to parse files:
 - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
 - [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
 - [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
-  describes `MmChunkContainer`s (used as container for Mulle Meck files)
+  describes `MmChunkContainer`s (Mulle Meck binary files) and their chunks
 - [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)
-  describes `AfChunkContainer`s (used as container for Airfix files)
+  describes `AfChunkContainer`s (Airfix binary files)
 
 ## Games
 
