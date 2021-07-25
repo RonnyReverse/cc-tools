@@ -157,8 +157,8 @@ class MmChunkContainer(KaitaiStruct):
                 self._read()
 
             def _read(self):
-                self.bool_1 = self._io.read_u4le()
-                self.bool_2 = self._io.read_u4le()
+                self.unknown_bool = self._io.read_u4le()
+                self.success_processed = self._io.read_u4le()
 
 
         @property

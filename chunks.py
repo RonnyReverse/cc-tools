@@ -19,14 +19,25 @@ def dump_mm(cc_file):
         elif chunk.id == "MISS":
             if "missions" not in result:
                 result["missions"] = list()
+            dependencies = list()
+            for dependency in chunk.data.dependencies:
+                dependencies.append({"fulfilled": dependency != 0})
+            state_changes = list()
+            for state_change in chunk.data.state_changes:
+                state_changes.append(
+                    {
+                        "unknown_bool": state_change.unknown_bool != 0,
+                        "success_processed": state_change.success_processed != 0,
+                    }
+                )
             result["missions"].append(
                 {
                     "name": chunk.data.mission_name,
                     "id": chunk.data.id,
                     "state": chunk.data.state.name.upper(),
                     "is_random": chunk.data.is_random != 0,
-                    "dependencies": [e != 0 for e in chunk.data.dependencies],
-                    "state_changes": [[e.bool_1 != 0, e.bool_2 != 0] for e in chunk.data.state_changes],
+                    "dependencies": dependencies,
+                    "state_changes": state_changes,
                 }
             )
         elif chunk.id == "INVI":

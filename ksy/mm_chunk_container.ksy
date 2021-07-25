@@ -187,11 +187,11 @@ types:
         repeat-expr: state_change_count
     types:
       state_change:
-        -webide-representation: "{bool_1} {bool_2}"
+        -webide-representation: "unknown_bool:{unknown_bool} success_processed:{success_processed}"
         seq:
-          - id: bool_1
+          - id: unknown_bool
             type: u4
-          - id: bool_2
+          - id: success_processed
             type: u4
     enums:
       mission_state:
