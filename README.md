@@ -20,6 +20,8 @@ The fully supported file formats are:
     - *.dat files
 
 File formats with parsing support only:
+
+  - `CcLoadedScene` *.ccf files (shape of the data, not much meaning yet)
   - `CcAnim` *.cca files
   - `AfChunkContainer` Airfix binary files (container only)
     - *.brf files
@@ -31,7 +33,7 @@ File formats with parsing support only:
 
 Unsupported file formats include:
 
-  - `CcLoadedScene` *.ccf and *.l3d files
+  - `CcLoadedScene` *.l3d files
   - All `AfChunkContainer` chunks
   - Unused `MmChunkContainer` chunks
     - `DTBS` (database) chunks
@@ -43,13 +45,14 @@ Unsupported file formats include:
 [Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative 
 language for describing binary data, is used to parse files:
 
-- [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
-- [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
-- [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
-- [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
-  describes `MmChunkContainer`s (Mulle Meck binary files) and their chunks
-- [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)
-  describes `AfChunkContainer`s (Airfix binary files)
+  - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
+  - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
+  - [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
+  - [ksy/cc_loaded_scene.ksy](./ksy/cc_loaded_scene.ksy) describes `CcLoadedScene`s (magic: `CcFf`)
+  - [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
+    describes `MmChunkContainer`s (Mulle Meck binary files) and their chunks
+  - [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)
+    describes `AfChunkContainer`s (Airfix binary files)
 
 ## Games
 
