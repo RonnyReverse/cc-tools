@@ -23,7 +23,7 @@ File formats with parsing support only:
 
   - `CcLoadedScene` *.ccf files (shape of the data, not much meaning yet)
   - `CcAnim` *.cca files
-  - `AfChunkContainer` Airfix binary files (container only)
+  - `AfChunkContainer` Airfix binary files
     - *.brf files
     - *.dat files
     - *.level files
@@ -34,15 +34,20 @@ File formats with parsing support only:
 Unsupported file formats include:
 
   - `CcLoadedScene` *.l3d files
-  - All `AfChunkContainer` chunks
   - Unused `MmChunkContainer` chunks
     - `DTBS` (database) chunks
     - `CMND` (command) chunks
     - `DATA` chunks
+  - Most non-primitive `AfChunkContainer` chunks
+    - `FLRY`
+    - `LDAT`
+    - `GRAV`
+    - `MODL`
+    - `IAOB`
 
 ### KSYs
 
-[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative 
+[Kaitai Struct](https://github.com/kaitai-io/kaitai_struct), a declarative
 language for describing binary data, is used to parse files:
 
   - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
@@ -52,7 +57,7 @@ language for describing binary data, is used to parse files:
   - [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
     describes `MmChunkContainer`s (Mulle Meck binary files) and their chunks
   - [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)
-    describes `AfChunkContainer`s (Airfix binary files)
+    describes `AfChunkContainer`s (Airfix binary files) and their chunks
 
 ## Games
 
@@ -66,4 +71,4 @@ Only a few games are known to use the CC engine:
     - Willy Werkel (German)
     - Mulle Mekk (Norwegian)
 
-The Cc.dll found in Airfix Dogfighter is less optimized and better for reversing. 
+The Cc.dll found in Airfix Dogfighter is less optimized and better for reversing.
