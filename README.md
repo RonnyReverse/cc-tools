@@ -7,7 +7,7 @@ CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
 
 - [extract.py](./extract.py) to extract `UpPackage`s
 - [convert.py](./convert.py) to convert `GtImage`s to PNG
-- [chunks.py](./chunks.py) to dump `MmChunkContainer`s to JSON
+- [chunks.py](./chunks.py) to dump `MmChunkContainer`s and `AfChunkContainer`s to JSON
 
 ## File Formats
 
@@ -18,18 +18,17 @@ The fully supported file formats are:
   - `MmChunkContainer` Mulle Meck binary files
     - *.air files
     - *.dat files
+  - `AfChunkContainer` Airfix binary files (excluding some chunks, see below)
+    - *.brf files
+    - *.level files
+    - *.object files
+    - *.roster files
+    - *.world files
 
 File formats with parsing support only:
 
   - `CcLoadedScene` *.ccf files (shape of the data, not much meaning yet)
   - `CcAnim` *.cca files
-  - `AfChunkContainer` Airfix binary files
-    - *.brf files
-    - *.dat files
-    - *.level files
-    - *.object files
-    - *.roster files
-    - *.world files
 
 Unsupported file formats include:
 
@@ -39,11 +38,17 @@ Unsupported file formats include:
     - `CMND` (command) chunks
     - `DATA` chunks
   - Most non-primitive `AfChunkContainer` chunks
-    - `FLRY`
-    - `LDAT`
-    - `GRAV`
-    - `MODL`
-    - `IAOB`
+    - *.dat files
+      - `PPOS`
+      - `PDAT`
+    - *.level
+      - `MODL`
+      - `IAOB`
+    - *.object
+      - `GRAV`
+    - *.world
+      - `FLRY`
+      - `LDAT`
 
 ### KSYs
 

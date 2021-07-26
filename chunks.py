@@ -112,6 +112,95 @@ def dump_mm(cc_file):
     json.dump(result, Path(f"{cc_file}.json").open("w"), indent=2)
 
 
+def dump_af(cc_file):
+    cc_file = Path(cc_file)
+    cc = AfChunkContainer.from_file(cc_file)
+    # print(f"loaded {cc_file}")
+
+    result = list()
+    for chunk in cc.root.chunks.chunks:
+        data = dict()
+        if type(chunk.data) in [str, int]:
+            data = {
+                "value": chunk.data
+            }
+        elif type(chunk.data) == bytes:
+            data = {
+                "value": f"{chunk.id} chunks are not supported"
+            }
+        elif chunk.id == "ROOM":
+            data = {
+                "id": chunk.data.id,
+                "floor": chunk.data.floor,
+                "name_internal": chunk.data.name_internal,
+                "name_localized": chunk.data.name_localized,
+            }
+        elif chunk.id == "FLRY":
+            data = {
+                "unk1": chunk.data.unk1,
+                "unk2": chunk.data.unk2,
+                "unk3": chunk.data.unk3,
+            }
+        elif chunk.id == "GRAV":
+            data = {
+                "float_1": chunk.data.float_1,
+                "float_2": chunk.data.float_2,
+                "float_2": chunk.data.float_2,
+            }
+        elif chunk.id == "OBJE":
+            data = {
+                "position": {
+                    "x": chunk.data.position.x,
+                    "y": chunk.data.position.y,
+                    "z": chunk.data.position.z,
+                },
+                "axis_rotation": {
+                    "x": chunk.data.axis_rotation.x,
+                    "y": chunk.data.axis_rotation.y,
+                    "z": chunk.data.axis_rotation.z,
+                },
+                "room": chunk.data.room,
+                "object": chunk.data.object,
+            }
+        elif chunk.id == "MODL":
+            data = {
+                "position": {
+                    "x": chunk.data.position.x,
+                    "y": chunk.data.position.y,
+                    "z": chunk.data.position.z,
+                },
+                "axis_rotation": {
+                    "x": chunk.data.axis_rotation.x,
+                    "y": chunk.data.axis_rotation.y,
+                    "z": chunk.data.axis_rotation.z,
+                },
+                "room": chunk.data.room,
+                "object": chunk.data.object,
+                "str1": chunk.data.str1,
+                "int1": chunk.data.int1,
+                "str2": chunk.data.str2,
+                "int2": chunk.data.int2,
+                "str3": chunk.data.str3,
+                "int3": chunk.data.int3,
+            }
+            if chunk.data.int4:
+                data["int4"] = chunk.data.int4
+        elif chunk.id == "IAOB":
+            data = {
+                "s1": chunk.data.s1,
+                "s2": chunk.data.s2,
+                "int": chunk.data.int,
+            }
+
+        result.append({
+            "chunk_id": chunk.id,
+            **data
+        })
+
+    # print(json.dumps(result, indent=2))
+    json.dump(result, Path(f"{cc_file}.json").open("w"), indent=2)
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -145,4 +234,4 @@ if __name__ == "__main__":
         if args.game == "mulle":
             dump_mm(cc_file)
         else:
-            raise NotImplemented(f"{args.game} is not implemented")
+            dump_af(cc_file)
