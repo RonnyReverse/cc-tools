@@ -11,44 +11,38 @@ CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
 
 ## File Formats
 
-The fully supported file formats are:
+### Supported
 
   - `UpPackage` *.up files
   - `GtImage` *.gti files
+  - `CcAnim` *.cca files
+  - `CcLoadedScene` *.ccf files (mostly just the shape of the data without meaning)
   - `MmChunkContainer` Mulle Meck binary files
     - *.air files
     - *.dat files
   - `AfChunkContainer` Airfix binary files (excluding some chunks, see below)
+    - path.dat
     - *.brf files
     - *.level files
     - *.object files
     - *.roster files
     - *.world files
 
-File formats with parsing support only:
+### Unsupported
 
-  - `CcLoadedScene` *.ccf files (shape of the data, not much meaning yet)
-  - `CcAnim` *.cca files
-
-Unsupported file formats include:
-
-  - `CcLoadedScene` *.l3d files
+  - Unused `CcLoadedScene` *.l3d files
   - Unused `MmChunkContainer` chunks
     - `DTBS` (database) chunks
     - `CMND` (command) chunks
     - `DATA` chunks
-  - Most non-primitive `AfChunkContainer` chunks
-    - *.dat files
-      - `PPOS`
-      - `PDAT`
+  - Some `AfChunkContainer` chunks
+    - path.dat files
+      - `PDAT` chunks: recorded path steps
     - *.level
-      - `MODL`
-      - `IAOB`
+      - `MODL` chunks: named `OBJE`cts with additional data
+      - `IAOB` chunks: interactive objects with state
     - *.object
-      - `GRAV`
-    - *.world
-      - `FLRY`
-      - `LDAT`
+      - `GRAV` gravity chunks?
 
 ### KSYs
 
@@ -58,7 +52,8 @@ language for describing binary data, is used to parse files:
   - [ksy/up_package.ksy](./ksy/up_package.ksy) describes `UpPackage`s (magic: `UDSP`)
   - [ksy/gt_image.ksy](./ksy/gt_image.ksy) describes `GtImage`s (magic: `GtIm`)
   - [ksy/cc_anim.ksy](./ksy/cc_anim.ksy) describes `CcAnim`s (magic: `CCA`)
-  - [ksy/cc_loaded_scene.ksy](./ksy/cc_loaded_scene.ksy) describes `CcLoadedScene`s (magic: `CcFf`)
+  - [ksy/cc_loaded_scene.ksy](./ksy/cc_loaded_scene.ksy)
+    describes `CcLoadedScene`s (magic: `CcFf`)
   - [ksy/mm_chunk_container.ksy](./ksy/mm_chunk_container.ksy)
     describes `MmChunkContainer`s (Mulle Meck binary files) and their chunks
   - [ksy/af_chunk_container.ksy](./ksy/af_chunk_container.ksy)

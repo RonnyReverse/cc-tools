@@ -31,6 +31,18 @@ class AfChunkContainer(KaitaiStruct):
             self.chunks = AfChunkContainer.AfChunk.Eos(self._io, self, self._root)
 
 
+    class Ppos(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.position = AfChunkContainer.Xyz(self._io, self, self._root)
+            self.rotation = AfChunkContainer.Xyz(self._io, self, self._root)
+
+
     class Hide(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -40,6 +52,36 @@ class AfChunkContainer(KaitaiStruct):
 
         def _read(self):
             pass
+
+
+    class Ldat(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.lines = []
+            i = 0
+            while not self._io.is_eof():
+                self.lines.append(AfChunkContainer.Ldat.Line(self._io, self, self._root))
+                i += 1
+
+
+        class Line(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
+
+            def _read(self):
+                self.x_1 = self._io.read_f4le()
+                self.y_1 = self._io.read_f4le()
+                self.x_2 = self._io.read_f4le()
+                self.y_2 = self._io.read_f4le()
+
 
 
     class Xyz(KaitaiStruct):
@@ -63,13 +105,11 @@ class AfChunkContainer(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.s1 = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
-            self.s2 = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
-            self.int = []
-            i = 0
-            while not self._io.is_eof():
-                self.int.append(self._io.read_u4le())
-                i += 1
+            self.type = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
+            self.name = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
+            self.bools = [None] * ((8 if self.type == u"IaDoor" else (8 if self.type == u"IaHatch" else (2 if self.type == u"IaBlind" else (2 if self.type == u"IaWindow" else (1 if self.type == u"IaLightswitch" else -1))))))
+            for i in range((8 if self.type == u"IaDoor" else (8 if self.type == u"IaHatch" else (2 if self.type == u"IaBlind" else (2 if self.type == u"IaWindow" else (1 if self.type == u"IaLightswitch" else -1)))))):
+                self.bools[i] = self._io.read_u4le()
 
 
 
@@ -103,6 +143,10 @@ class AfChunkContainer(KaitaiStruct):
                 self.data = self._io.read_u4le()
             elif _on == u"BCKD":
                 self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
+            elif _on == u"PPOS":
+                self._raw_data = self._io.read_bytes(self.size)
+                _io__raw_data = KaitaiStream(BytesIO(self._raw_data))
+                self.data = AfChunkContainer.Ppos(_io__raw_data, self, self._root)
             elif _on == u"ALMI":
                 self.data = self._io.read_u4le()
             elif _on == u"OBJE":
@@ -125,8 +169,14 @@ class AfChunkContainer(KaitaiStruct):
                 self.data = self._io.read_u4le()
             elif _on == u"FRIK":
                 self.data = self._io.read_u4le()
+            elif _on == u"OUT2":
+                self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
             elif _on == u"MEDA":
                 self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
+            elif _on == u"LDAT":
+                self._raw_data = self._io.read_bytes(self.size)
+                _io__raw_data = KaitaiStream(BytesIO(self._raw_data))
+                self.data = AfChunkContainer.Ldat(_io__raw_data, self, self._root)
             elif _on == u"PICT":
                 self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
             elif _on == u"GUKI":
@@ -157,6 +207,10 @@ class AfChunkContainer(KaitaiStruct):
                 self._raw_data = self._io.read_bytes(self.size)
                 _io__raw_data = KaitaiStream(BytesIO(self._raw_data))
                 self.data = AfChunkContainer.Grav(_io__raw_data, self, self._root)
+            elif _on == u"PDAT":
+                self._raw_data = self._io.read_bytes(self.size)
+                _io__raw_data = KaitaiStream(BytesIO(self._raw_data))
+                self.data = AfChunkContainer.Pdat(_io__raw_data, self, self._root)
             elif _on == u"LLST":
                 self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
             elif _on == u"NAME":
@@ -187,6 +241,8 @@ class AfChunkContainer(KaitaiStruct):
                 self.data = AfChunkContainer.Modl(_io__raw_data, self, self._root)
             elif _on == u"SCND":
                 self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
+            elif _on == u"TXT2":
+                self.data = (KaitaiStream.bytes_terminate(self._io.read_bytes(self.size), 0, False)).decode(u"windows-1250")
             elif _on == u"ROOM":
                 self._raw_data = self._io.read_bytes(self.size)
                 _io__raw_data = KaitaiStream(BytesIO(self._raw_data))
@@ -211,6 +267,33 @@ class AfChunkContainer(KaitaiStruct):
 
 
 
+    class Pdat(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.entries = []
+            i = 0
+            while not self._io.is_eof():
+                self.entries.append(AfChunkContainer.Pdat.BufferEntry(self._io, self, self._root))
+                i += 1
+
+
+        class BufferEntry(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
+
+            def _read(self):
+                self.data = self._io.read_bytes(12)
+
+
+
     class Modl(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -219,11 +302,8 @@ class AfChunkContainer(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.position = AfChunkContainer.Xyz(self._io, self, self._root)
-            self.axis_rotation = AfChunkContainer.Xyz(self._io, self, self._root)
-            self.room = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
-            self.object = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
-            self.str1 = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
+            self.object = AfChunkContainer.Obje(self._io, self, self._root)
+            self.name = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
             self.int1 = self._io.read_u4le()
             self.str2 = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
             self.int2 = self._io.read_u4le()
@@ -242,9 +322,9 @@ class AfChunkContainer(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.unk1 = self._io.read_f4le()
-            self.unk2 = self._io.read_f4le()
-            self.unk3 = self._io.read_f4le()
+            self.floor_1_y = self._io.read_f4le()
+            self.floor_2_y = self._io.read_f4le()
+            self.floor_3_y = self._io.read_f4le()
 
 
     class Room(KaitaiStruct):
