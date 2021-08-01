@@ -124,7 +124,7 @@ types:
   room:
     -webide-representation: "floor:{floor:dec} {name_internal}"
     seq:
-      - id: id
+      - id: room_id
         type: u1
       - id: name_internal
         type: strz
@@ -141,13 +141,13 @@ types:
       line:
         -webide-representation: "x_1:{x_1:dec} y_1:{y_1:dec} x_2:{x_2:dec} y_2:{y_2:dec}"
         seq:
-          - id: x_1
+          - id: x1
             type: f4
-          - id: y_1
+          - id: y1
             type: f4
-          - id: x_2
+          - id: x2
             type: f4
-          - id: y_2
+          - id: y2
             type: f4
   grav:
     seq:

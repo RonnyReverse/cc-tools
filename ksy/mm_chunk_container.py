@@ -55,7 +55,7 @@ class MmChunkContainer(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.id = self._io.read_u4le()
+            self.airplane_id = self._io.read_u4le()
             self.airb = MmChunkContainer.Airb(self._io, self, self._root)
 
 
@@ -127,9 +127,9 @@ class MmChunkContainer(KaitaiStruct):
 
         class MissionState(Enum):
             none = 0
-            activate = 1
-            complete = 2
-            reward = 3
+            activated = 1
+            completed = 2
+            rewarded = 3
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
             self._parent = _parent

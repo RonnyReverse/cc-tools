@@ -61,7 +61,7 @@ types:
   aira:
     -webide-representation: "{id} {airb}"
     seq:
-      - id: id
+      - id: airplane_id
         type: u4
       - id: airb
         type: airb
@@ -196,9 +196,9 @@ types:
     enums:
       mission_state:
         0: none
-        1: activate
-        2: complete
-        3: reward
+        1: activated
+        2: completed
+        3: rewarded
     instances:
       mission_name:
         value: |

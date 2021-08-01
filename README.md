@@ -35,8 +35,10 @@ CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
     - `DTBS` (database) chunks
     - `CMND` (command) chunks
     - `DATA` chunks
+  - `MmChunkContainer` missions.dat file
+    - mission state data size is hardcoded but isn't included in this file
   - Some `AfChunkContainer` chunks
-    - path.dat files
+    - path.dat file
       - `PDAT` chunks: recorded path steps
     - *.level
       - `MODL` chunks: named `OBJE`cts with additional data

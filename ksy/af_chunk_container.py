@@ -77,10 +77,10 @@ class AfChunkContainer(KaitaiStruct):
                 self._read()
 
             def _read(self):
-                self.x_1 = self._io.read_f4le()
-                self.y_1 = self._io.read_f4le()
-                self.x_2 = self._io.read_f4le()
-                self.y_2 = self._io.read_f4le()
+                self.x1 = self._io.read_f4le()
+                self.y1 = self._io.read_f4le()
+                self.x2 = self._io.read_f4le()
+                self.y2 = self._io.read_f4le()
 
 
 
@@ -335,7 +335,7 @@ class AfChunkContainer(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.id = self._io.read_u1()
+            self.room_id = self._io.read_u1()
             self.name_internal = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
             self.name_localized = (self._io.read_bytes_term(0, False, True, True)).decode(u"windows-1250")
             self.floor = self._io.read_u1()
