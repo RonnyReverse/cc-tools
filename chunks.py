@@ -2,6 +2,7 @@
 
 import base64
 import json
+from enum import Enum
 from pathlib import Path
 
 from ksy.af_chunk_container import AfChunkContainer
@@ -25,6 +26,8 @@ class ChunkContainer:
         serializable = None
 
         if type(value) in [str, int, float, bool, type(None)]:
+            if value != value:
+                value = None
             serializable = value
 
         elif type(value) == bytes:
@@ -32,6 +35,9 @@ class ChunkContainer:
 
         elif type(value) == list:
             serializable = [ChunkContainer.to_serializable(e) for e in value]
+
+        elif isinstance(value, Enum):
+            serializable = [value.value, value.name.upper()]
 
         else:
             serializable = dict()
