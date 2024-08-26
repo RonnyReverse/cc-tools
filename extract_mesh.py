@@ -33,10 +33,10 @@ def extract_mesh(file):
                             obj_vert += f"v {content.data.chunk.data.x} {content.data.chunk.data.y} {content.data.chunk.data.z}\n"
                         elif content.type == CcLoadedScene.Chunk.ChunkType.cc_polygon:
                             # Add +1 as obj files are from 1-n, not 0-n 
-                            obj_face += f"f {content.data.unknwon_int_1 + 1} {content.data.unknwon_int_2 + 1} {content.data.unknwon_int_3 + 1}"
+                            obj_face += f"f {content.data.unknwon_int_1 + 1} {content.data.unknwon_int_2 + 1} {content.data.unknwon_int_3 + 1}\n"
                     
                     with open(f"./outputs/{prefix}-{name}.obj", "w") as file:
-                        file.write(f"g {name}")
+                        file.write(f"g {name}\n")
                         file.write(obj_vert)
                         file.write(obj_face)
                         file.close()
