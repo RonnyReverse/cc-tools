@@ -6,6 +6,7 @@ CC, the 3D engine (Cc.dll, UdsPack.dll) data files.
 ## Tools
 
 - [extract.py](./extract.py) to extract `UpPackage`s
+- [extract_mesh.py](./extract_mesh.py) to extract objs from *.ccf
 - [convert.py](./convert.py) to convert `GtImage`s to PNG
 - [chunks.py](./chunks.py) to dump `MmChunkContainer`s and `AfChunkContainer`s to JSON
 
